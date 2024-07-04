@@ -39,17 +39,19 @@ def fifs_spkmeans(dataset: pd.DataFrame, n_clusters: int, n_inits: int) -> dict:
                 cents_dist = np.dot(x, next_center.T)
                 distances = (1/n_h) * (cents_dist + 1 - ((n_h / divide_cons) * np.log(n_h)))
                 clus_no[index] = np.argmax(distances)
+                assignment = clus_no[index]
                 n_h[clus_no[index]] += 1 + 1/n_clusters
                 n_h = n_h- 1/n_clusters
                
                 center_distance[index]  = cents_dist[clus_no[index]]
 
-                for h in range(n_clusters):
+                #for h in range(n_clusters):
                     #temp_center = next_center + (1/n_h[:, np.newaxis]) * (x - next_center)                
                     #next_center = temp_center / np.linalg.norm(temp_center, axis=1, keepdims=True)
-                    temp_center = next_center[h] + (1/n_h[h]) * (x - next_center[h])     
-                    next_center[h] = temp_center / np.linalg.norm(temp_center, keepdims=True)
-
+                #    temp_center = next_center[h] + (1/n_h[h]) * (x - next_center[h])     
+                #    next_center[h] = temp_center / np.linalg.norm(temp_center, keepdims=True)
+                temp_center =  next_center[assignment] + (1/n_h[assignment]) * (x - next_center[assignment])
+                next_center[assignment] = temp_center / np.linalg.norm(temp_center, keepdims=True)
         if rep == 0:
             current_center = next_center
             current_clusters = clus_no

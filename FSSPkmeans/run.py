@@ -5,10 +5,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-dermatology = pd.read_excel('dermatology.xlsx',header=None)
+dermatology = pd.read_excel('C:\deneme\Frequency-Sensitive-Spherical-Kmeans\FSSPkmeans\dermatology.xlsx',header=None)
 dermatology = dermatology.dropna()
 norm_derm = normalizer(dermatology)
-num_init = 10
+num_init = 1
 lls = {'spkmeans': [],'pifs-spkmeans' : [], 'fifs-spkmeans' : []}
 
 run_times = {'spkmeans': [],'pifs-spkmeans' : [], 'fifs-spkmeans' : []}
@@ -79,9 +79,9 @@ plt.savefig('Sof_Values.png')
 
 
 plt.figure(figsize=(12,8))
-plt.plot(np.arange(2,21),run_times['pifs-spkmeans'], marker='x', color='red',label='pifs-spkmeans')
+#plt.plot(np.arange(2,21),run_times['pifs-spkmeans'], marker='x', color='red',label='pifs-spkmeans')
 plt.plot(np.arange(2,21),run_times['fifs-spkmeans'], marker='.', color='black',label='fifs-spkmeans')
-plt.plot(np.arange(2,21),run_times['spkmeans'], marker='o', color='blue',label='spkmeans')
+#plt.plot(np.arange(2,21),run_times['spkmeans'], marker='o', color='blue',label='spkmeans')
 plt.title('Run Times')
 plt.xticks(np.arange(2,21))
 plt.ylabel('Run Time')
